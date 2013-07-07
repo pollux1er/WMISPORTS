@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	require_once('../lib/classes/WMI.class.php');
 	require_once('../lib/classes/joueurs.class.php');
 	require_once('../lib/classes/equipes_joueurs.class.php');
+	require_once('../lib/classes/rencontres.class.php');
 
 	$C = new CamerticConfig;
 	

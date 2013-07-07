@@ -13,9 +13,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	$app = new WMI;
 	$pathfolder = getcwd() . DS ;
-	echo "<pre>";var_dump($C);
-	var_dump($pathfolder);
-	die;
+	// echo "<pre>";var_dump($C);
+	// var_dump($pathfolder);
+	// die;
 	// Check session
 	if(!$app->checkSession()) {
 		header('location:./index.html');
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$game = $r->getRecord($_GET['game']);
 	// Traitement des variables a exclure
 	$url_invite_mail = "./";
-	$html = file_get_contents($url_invite_mail);	
+	//$html = file_get_contents($url_invite_mail);	
 	try {
 		$r->invitePlayer($_GET['game'], $_GET['player'], $joueur->noms, $joueur->email, $_POST['subject'], $_POST['message']);
 		$app->url = $app->rootUrl . 'dashboard/view/team/' . $_GET['idteam'];

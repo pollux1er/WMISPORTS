@@ -41,7 +41,8 @@
 			<?php
 				// get all teams of the captain here
 				$team = new equipes();
-				$teams = $team->getAllRecords();
+				$teams = $team->getMyTeams($_SESSION['iduser']);
+			//	var_dump($teams); die;
 			foreach($teams as $t) { ?>
 				<li <?php if(@$_GET['idteam'] == $t->id) echo 'class="current"'; ?>><a href="dashboard/view/team/<?php echo $t->id; ?>"><span class="icon icon-pencil"></span><?php echo utf8_encode($t->nom_equipe); ?></a></li>
 			<?php } ?>

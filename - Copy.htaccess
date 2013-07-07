@@ -1,0 +1,25 @@
+ErrorDocument 404   /index.php
+
+Options +FollowSymLinks -MultiViews
+# Turn mod_rewrite on
+RewriteEngine On
+RewriteBase /yghautier/WMISPORT/
+
+RewriteCond %{HTTP_HOST} ^wmisports\.com$
+RewriteRule (.*) http://www.wmisports.com/$1 [R=301,L]
+
+#AddType application/x-httpd-php .html .htm
+
+RewriteRule ^dashboard/([^/]+)/([^/]+)/([^/]+)/([^/]*)/?$ dashboard.php?view=$1&idteam=$2&idplayer=$3&layout=$4 [L]
+
+RewriteRule ^dashboard/([^/]+)/([^/]+)/([^/]+)/([^/]*)/([^/]*)/?$ dashboard.php?view=$1&idteam=$2&idplayer=$3&layout=$4&game=$5 [L]
+
+RewriteRule ^dashboard/team/([0-9]+)/(.*)$ dashboard.php?view=team&idteam=$1&layout=$2 [L]
+
+RewriteRule ^dashboard/(.*)/$ dashboard.php?view=$1 [L]
+
+RewriteRule ^dashboard/view/newteam/(.*)$ dashboard.php?view=newteam&idcaptain=$1 [L]
+
+RewriteRule ^dashboard/view/team/(.*)$ dashboard.php?view=team&idteam=$1 [L]
+
+RewriteRule ^dashboard$ dashboard.php [L]

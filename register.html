@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="keywords" content="recreational sports team management, sports equipment, mobile cellular phones, cars automobiles, vacation, airlines, holiday, electronics, rec league, hockey, football, soccer, basketball, baseball, ultimate frisbee, rugby, volleyball, lacrosse, curling, innertube waterpolo, dodgeball, tennis" />
+<title>Registration | WMI SPORT - sports team management made simple!</title>
+<link rel="stylesheet" href="css/style.default.css" type="text/css" />
+<script type="text/javascript" src="js/plugins/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/plugins/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="js/custom/general.js"></script>
+<script type="text/javascript" src="js/custom/register.js"></script>
+<!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="css/style.ie9.css"/>
+<![endif]-->
+<!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="css/style.ie8.css"/>
+<![endif]-->
+<!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+
+<body class="loginpage">
+
+	<div class="registerbox">
+    	<div class="loginboxinner">
+        	
+            <div class="logo">
+            	<h1><span>WMI</span>SPORT</h1>
+                <p>Sports team management made simple!</p>
+            </div><!--logo-->
+            
+           <!-- <br clear="all" /><br />-->
+            
+            <div class="nousername">
+				<div class="loginmsg">The username is not corect.</div>
+            </div><!--nousername-->
+			
+			<div class="nopassword">
+				<div class="loginmsg">The passwords are not correct.</div>
+            </div><!--nousername-->
+			
+			<div class="differentpassw">
+				<div class="loginmsg">The passwords you entered are not the same.</div>
+            </div><!--nousername-->
+            
+           
+            
+            <form id="login" action="register.php" method="post">
+            	
+                <div class="username">
+                	<div class="usernameinner">
+                    	<input type="text" name="username" id="username" />
+                    </div>
+                </div>
+				
+                <div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password" id="password" />
+                    </div>
+                </div>
+				
+				<div class="password">
+                	<div class="passwordinner">
+                    	<input type="password" name="password2" id="password2" />
+                    </div>
+                </div>
+                <div class="keep"><input type="checkbox" /><a href="terms.html">Accept our terms and services</a></div> <br />
+                <button>Click here to register!</button>
+                
+                <div class="keep">
+					<span>Already registered ?</span> <a href="index.html">Sign in here!</a><br />
+					<span>Forgot your ID/password?</span> <a class="alogin" href="lostpassword.html">Recover user ID/password</a><br />
+				</div>
+            
+            </form>
+            
+        </div><!--loginboxinner-->
+    </div><!--loginbox-->
+
+
+</body>
+</html>
