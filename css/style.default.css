@@ -174,7 +174,7 @@ body { background: #eee !important; }
 	border-bottom: 1px solid #475875;
 }
 
-.loginpage .nousername, .loginpage .nopassword, .registerbox .differentpassw { display: none; }
+.loginpage .nousername, .loginpage .nopassword, .loginpage .bademail, .registerbox .differentpassw  { display: none; }
 .loginpage .nopassword { color: #fff; }
 .loginpage .nopassword .thumb { 
 	padding: 5px; background: #fff; display: inline-block; vertical-align: top; 

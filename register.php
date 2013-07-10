@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//////// Destruction des variables inutile /////////
 	unset($_POST['username']);
 	unset($_POST['password2']);
+	unset($_POST['terms']);
 	////////////////////////////////////////////////////////
 	// var_dump($_POST); die;
 	if(!$app->saveNewMember($_POST)) { // Enregistrer le nouveau membre

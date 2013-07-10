@@ -35,7 +35,7 @@ $user = $m->getRecord($_SESSION['iduser']);
 					</p>
 					<p>
 						<label><b>Email Address</b> </label>
-						<span class="field" style="line-height: 32px;"><input type="text" name="email" value="<?php echo $user->email; ?>" class="smallinput" /></span>
+						<span class="field" style="line-height: 32px;"><input type="text" name="email" value="<?php echo ($user->email == '') ? $user->login : $user->email; ?>" class="smallinput" /></span>
 						<small class="desc">Note: If you change your email address, you'll be sent a confirmation email.</small>
 					</p>
 					<p>
