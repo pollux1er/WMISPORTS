@@ -21,7 +21,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	global $idcaptain;
 
 	$prof = new membres(); 
-	
+	$_SESSION['u']['utilisateur'] = $_POST['login'];
+	$_SESSION['u']['nom'] = $_POST['name'];
 	// Traitement des variables a exclure
 	
 	// Exclusion des variables 
