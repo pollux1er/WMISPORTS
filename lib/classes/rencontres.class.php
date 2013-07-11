@@ -56,7 +56,7 @@ class rencontres extends entity {
 	}
 	
 	public function checkInvitationStatus($idrencontre, $idplayer) {
-		$req = "SELECT * FROM status_joueur_rencontre WHERE id_joueur = '".$idplayer."' AND id_rencontre = '".$idrencontre."' LIMIT 1;";
+		$req = "SELECT st.invite_status AS invite_status, st.id_joueur AS id_joueur, st.id_rencontre AS id_rencontre, st.reply AS reply, j.noms AS nom FROM status_joueur_rencontre AS st LEFT JOIN joueurs AS j ON j.id = st.id_joueur WHERE st.id_joueur = '".$idplayer."' AND st.id_rencontre = '".$idrencontre."' LIMIT 1;";
 		
 		$status = $this->select($req);
 		//var_dump($status);
@@ -66,18 +66,35 @@ class rencontres extends entity {
 	}
 	
 	public function invitePlayer($game, $player, $name, $email, $title, $message) {
+		global $app;
 		$j = new joueurs();
-		$captainName = $j->getCaptain($idteam);
-		$html = '<div style="font-family:verdana, arial;font-size:10pt;"><span style="font-size:10pt;"><br><br>Dear ' . $email . ',<br><br><br><br><h2>Welcome to WMISPORTS!</h2><br><br>WMISPORTS has proven very useful to the teams using it, and hopefully it will be useful for your teams as well.<br><br><br>Below are some tips. If you need any help at all, or have any suggestions, don\'t hesitate to contact us at <font color="blue">info@wmisports.com</font> and we\'ll get back to you asap.<br><br>Thanks for using WMISPORTS,<br><br><br>- WMISPORTS Customer Service Dept.<br><b><a href="http://wmisports.com/" target="_blank">wmisports.com</a></b><br><br><br><br><br><font color="#c0c0c0">P.S.<br>You\'re being sent this email because someone registered at WMISPORTS using your email address. If it wasn\'t you, simply ignore the activation email that will also have been sent to your address, and you won\'t receive any further emails.<br></font><br>If you received this email in error and wish to opt out of receiving any further WMISPORTS emails ever, please email "unsubscribe@wmisports.com".<br><hr><h3>Captain tips:</h3><br><ul><li><b>Click the <b><font color="red">"3. Invite players"</font></b> link to invite players</b> to your team\'s games. That sends a single email to each player you select, allowing them to indicate their attendance at ALL games.<br><br></li><li><b>Tell your players to expect emails from</b> <font color="blue">r2d2@wmisports.com</font>, and check bulk/junk mail folders, spam filter settings, and/or add that to their address book. (You could tell them via an email from your own address.)<br><br></li><li><b>Click the link in the activation email that is sent to you</b> (if you haven\'t already), in order to complete registration &amp; be able to contact your players from WMISPORTS. (Check your spam/junk folders.)<br><br></li><li>You can also invite players to individual games, or remind players who\'ve already been invited: click the "invite/remind" link next to each game. (When possible, it\'s better to invite to all games at once to reduce email to your players.)<br><br></li><li>Contact players with your own message (without inviting to games): click the "Contact players" link. (As with game invites, you can choose to contact all players, or a selection of regular players/subs.)<br><br></li><li>Delegate to your assistant captains so they can help run the team on your behalf: see FAQ #4 in the <a href="http://info.wmisports.com/wtf#faqs" target="_blank">FAQs</a>.</li></ul><hr><h3>Player tips:</h3><br><ul><li><b>Click the link in the activation email that is sent to you</b>: that will automatically add any teams you\'re on to your new account (teams where you\'re using the same email address). You DON\'T need to type in the name of the team you\'re on: that\'s for creating a brand new team.<br><br></li><li>If you\'re on other teams (e.g. using a different email address), open one of the team emails you\'ve received. Click your schedule link, and then click "Register/add team to account".<br><br></li><li>If you need another email with your schedule link, go to WMISPORTS.com and click "Get your sched link email".<br><br></li></ul><hr><h3>Tips for everyone:</h3><br><ul><li>Hovering your mouse over buttons/links/other things will show info explaining what they do.<br><br></li><li>Tick the "remember me" checkbox when signing in, and next time you visit WMISPORTS.com on the same computer you\'ll be signed in automatically: no need to type your password. (Not recommended on shared computers.)<br><br></li><li>More info is in the <a href="http://info.wmisports.com/wtf#faqs" target="_blank">FAQs</a>.</li></ul><br><br><font color="#c0c0c0">5817</font></span></div>';
+		$m = new membres();
+		$captain = $m->getRecord($j->getCaptain($_GET['idteam']));
+		$patterns = array();
+		$replacements = array();
+		$patterns[0] = '/{captainname}/';
+		$patterns[1] = '/{playername}/';
+		$patterns[2] = '/{message}/';
+		$patterns[3] = '/{date}/';
+		$patterns[4] = '/{team}/';
+		$replacements[0] = $captain->name;
+		$replacements[1] = $name;
+		$replacements[2] = $message;
+		$replacements[3] = $this->getDateOfGame($game);
+		$replacements[4] = $this->getTeamNameFromGame($game);
+		//echo "<pre>"; var_dump($captain); die;
+		//var_dump($app->rootUrl.'inviteemail.txt');
+		$html = file_get_contents($app->rootUrl.'inviteemail.txt');
 		//$newmail->setHtmlBody($html);
-		//echo "<pre>"; var_dump($html);
-		$teamName = "";
+		//echo "<pre>"; var_dump($html); die;
+		$mail = stripslashes(preg_replace($patterns, $replacements, $html));
+		$teamName = $this->getTeamNameFromGame($game);
 		$subject = "$title / $teamName";
-		$headers ='From: "$email / WMISPORTS "<r2d2@wmisports.com>'."\n"; 
+		$headers ='From: "'.$captain->name.' / WMISPORTS "<r2d2@wmisports.com>'."\n"; 
 		$headers .='Reply-To: r2d2@wmisports.com'."\n"; 
 		$headers .='Content-Type: text/html; charset="iso-8859-1"'."\n"; 
 		$headers .='Content-Transfer-Encoding: 8bit'; 
-		if(!mail($email, $subject, $html, $headers)) {
+		if(@mail($email, $subject, $mail, $headers)) {
 			//die;
 			$this->inviteChekIn($game, $player);
 		}	
@@ -86,6 +103,18 @@ class rencontres extends entity {
 	private function inviteChekIn($game, $player) {
 		$req = "UPDATE `status_joueur_rencontre` SET `invite_status` = 'y' WHERE `id_joueur` = '".$player."' AND `id_rencontre` = '".$game."' LIMIT 1 ;";
 		$checkin = $this->update($req);
+	}
+	
+	public function getDateOfGame($idgame) {
+		$sql = "SELECT * FROM $this->table WHERE id = '".$idgame."' LIMIT 1;";
+		$res = $this->select($sql);
+		return $res[0]->date;
+	}
+	
+	public function getTeamNameFromGame($idgame) {
+		$sql = "SELECT e.nom_equipe AS teamname FROM $this->table AS g LEFT JOIN equipes AS e ON e.id = g.equipe WHERE g.id = '".$idgame."' LIMIT 1;";
+		$res = $this->select($sql);
+		return $res[0]->teamname;
 	}
 	
 	//public function save

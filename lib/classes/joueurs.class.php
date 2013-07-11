@@ -65,9 +65,9 @@ class joueurs extends entity {
 	}
 	
 	public function getCaptain($idteam) {
-		$sql = "SELECT j.noms, j.id FROM equipes AS eq INNER JOIN $this->table AS j ON j.id = eq.capitaine WHERE eq.id = '".$idteam."' LIMIT 1;";
+		$sql = "SELECT * FROM equipes WHERE id = '".$idteam."' LIMIT 1;";
 		$res = $this->select($sql);
-		return $res;
+		return $res[0]->capitaine;
 	}
 	
 	public function __destruct() {

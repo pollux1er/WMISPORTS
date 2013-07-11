@@ -1,14 +1,14 @@
 <div style="font-family:verdana,arial;font-size:10pt"><div class="adM"> </div>
-<b>{Captain}</b><br>
+<b>{playername}</b><br>
 <table border="1" cellpadding="0" cellspacing="0">
 <tbody>
 <tr><td><span style="font-size:10pt;color:red"><br><b>{message}</b></span><br><br></td></tr>
 </tbody>
 </table><br>  
-<b>{Captain}</b> has set up a roster &amp; schedule for <b>{team}</b> on WMISPORTS, to make it easier to run the team.  <br><br>
-<b>Visit "Your Schedule"</b> below to activate your email address. Then please help out {Captain}: tick off which {team} games you can attend.  
+<b>{captainname}</b> has set up a roster &amp; schedule for <b>{team}</b> on WMISPORTS, to make it easier to run the team.  <br><br>
+<b>Visit "Your Schedule"</b> below to activate your email address. Then please help out {captainname}: tick off which {team} games you can attend.  
 <a href="http://wmisports.com/wmibeta/k/?i=ewe" target="_blank">More about WMISPORTS</a> <br><br>
-<hr> <br><br> <b>You've been invited</b> by {Captain}...<br><br> 
+<hr> <br><br> <b>You've been invited</b> by {captainname}...<br><br> 
 <b>TO:</b> the {team} game<br><div style="padding-left:30px"><br><b>ON:</b> <u>{date}</u> </div><br> <h1>Can you make it?</h1> 
 Please let us know: 
 <ul><li>
