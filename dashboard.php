@@ -77,6 +77,20 @@ if(isset($_GET['team']))
     
     
 </div><!--bodywrapper-->
-
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color :  #000; color :#fff; position : fixed; bottom : 0;">
+<tbody>
+<tr>
+  <td align="center" class="pageFooter">
+    <a href="/wmibeta/?nl=2">WMISPORTS</a>™ <a href="http://happytc.com/htc/k/?i=cpy&amp;lang=en_CA" title="© 2013">© 2013</a>, <a href="#" target="_new">DPCP</a> 
+    — <a href="#" title="About WMISPORTS">about</a>
+    — <a href="#" title="View our Terms of Service">terms</a> 
+    — <a href="#" title="View our Privacy Policy">privacy</a> 
+    — <a href="#" title="Helpful tips on WMISPORTS">help</a> 
+    — <a href="mailto:info{AT}wmisports{DOT}com?body=NOTE:%20Please%20insert%20an%20@%20sign%20in%20the%20usual%20place%20in%20the%20To%20address%20of%20this%20email.%0A%0D%0A%0DThanks%20for%20helping%20us%20avoid%20spam!" title="Get in touch with us for more info, questions, support, etc.">contact us</a>
+    — <a href="#" title="Feed us some back: we'd love to hear it">feedback</a>
+    — <a href="#" title="SMS/twitter"><img src="http://happytc.com/htc/images/icon_twitter_bird_19x16.png" border="0">twitter</a>
+    — <a href="#" title="WMISPORTS mobile (beta)"><img src="http://happytc.com/htc/images/icon_mobile_phone.png" border="0"> mobile</a>
+  </td>
+</tr></tbody></table>
 </body>
 </html>
