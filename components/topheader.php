@@ -50,16 +50,7 @@
         </ul>
         
         <div class="headerwidget">
-        	<div class="earnings">
-            	<div class="one_half">
-                	<h4>Today's Earnings</h4>
-                    <h2>$640.01</h2>
-                </div><!--one_half-->
-                <div class="one_half last alignright">
-                	<h4>Current Rate</h4>
-                    <h2>53%</h2>
-                </div><!--one_half last-->
-            </div><!--earnings-->
+        	<img src="images/SNP_2922338_en_v1.png" width="468" height="60" />
         </div><!--headerwidget-->
         
         
