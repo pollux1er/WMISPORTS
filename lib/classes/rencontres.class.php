@@ -77,11 +77,15 @@ class rencontres extends entity {
 		$patterns[2] = '/{message}/';
 		$patterns[3] = '/{date}/';
 		$patterns[4] = '/{team}/';
+		$patterns[5] = '/{idplayer}/';
+		$patterns[6] = '/{idgame}/';
 		$replacements[0] = $captain->name;
 		$replacements[1] = $name;
 		$replacements[2] = $message;
 		$replacements[3] = $this->getDateOfGame($game);
 		$replacements[4] = $this->getTeamNameFromGame($game);
+		$replacements[5] = $player;
+		$replacements[6] = $game;
 		//echo "<pre>"; var_dump($captain); die;
 		//var_dump($app->rootUrl.'inviteemail.txt');
 		$html = file_get_contents($app->rootUrl.'inviteemail.txt');
@@ -89,7 +93,7 @@ class rencontres extends entity {
 		//echo "<pre>"; var_dump($html); die;
 		$mail = stripslashes(preg_replace($patterns, $replacements, $html));
 		$teamName = $this->getTeamNameFromGame($game);
-		$subject = "$title / $teamName";
+		$subject = "$title / [$teamName] : " . $replacements[3] . " / " . "invite to game" ;
 		$headers ='From: "'.$captain->name.' / WMISPORTS "<r2d2@wmisports.com>'."\n"; 
 		$headers .='Reply-To: r2d2@wmisports.com'."\n"; 
 		$headers .='Content-Type: text/html; charset="iso-8859-1"'."\n"; 
@@ -100,8 +104,13 @@ class rencontres extends entity {
 		}	
 	}
 	
+	public function getReply($g, $p, $r) {
+		$req = "UPDATE `status_joueur_rencontre` SET `reply` = '".$r."', `last_update` = NOW( ) WHERE `id_joueur` = '".$p."' AND `id_rencontre` = '".$g."' LIMIT 1 ;";
+		return $this->update($req);
+	}
+	
 	private function inviteChekIn($game, $player) {
-		$req = "UPDATE `status_joueur_rencontre` SET `invite_status` = 'y' WHERE `id_joueur` = '".$player."' AND `id_rencontre` = '".$game."' LIMIT 1 ;";
+		$req = "UPDATE `status_joueur_rencontre` SET `invite_status` = 'y', `last_update` = CURRENT_TIME( ) WHERE `id_joueur` = '".$player."' AND `id_rencontre` = '".$game."' LIMIT 1 ;";
 		$checkin = $this->update($req);
 	}
 	
@@ -111,18 +120,25 @@ class rencontres extends entity {
 		return $res[0]->date;
 	}
 	
+	public function getGameStatus($idgame) {
+		$sql = "SELECT * FROM $this->table WHERE id = '".$idgame."' AND date >= CURDATE() LIMIT 1;";
+		$res = $this->select($sql);
+		if(count($res) == 0)
+			return 'outdated';
+		
+		return 'uptodate';
+	}
+	
 	public function getTeamNameFromGame($idgame) {
 		$sql = "SELECT e.nom_equipe AS teamname FROM $this->table AS g LEFT JOIN equipes AS e ON e.id = g.equipe WHERE g.id = '".$idgame."' LIMIT 1;";
+		///echo "<pre>"; var_dump($sql); die;
 		$res = $this->select($sql);
 		return $res[0]->teamname;
 	}
 	
 	//public function save
-	
 	public function __destruct() {
 		parent::__destruct();
-	}
-	
+	}	
 }
-
 ?>

@@ -5,7 +5,7 @@
  * @package 	Camertic Framework
  * @since 		Version 1.0
  * @version		1.1
- * @copyright 	Copyright (c) 2012, Bertrand, Patient et Fabrice
+ * @copyright 	Copyright (c) 2012, Patient
  * @license		GNU General Public License
  */
 
@@ -43,13 +43,13 @@ abstract class entity extends bd {
         return null;
     }
 
-    /**  Depuis PHP 5.1.0  */
+    /**  Since PHP 5.1.0  */
     public function __isset($name) {
         //echo "Est-ce que '$name' est défini ?\n";
         return isset($this->$name);
     }
 
-    /**  Depuis PHP 5.1.0  */
+    /**  Since PHP 5.1.0  */
     public function __unset($name) {
         //echo "Effacement de '$name'\n";
         unset($this->$name);

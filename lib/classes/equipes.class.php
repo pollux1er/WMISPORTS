@@ -55,12 +55,17 @@ class equipes extends entity {
 	
 	// Lister les équipes d'un capitaine et celle dont il est joueur
 	public function getMyTeams($idjoueur) {
+		$req = "SELECT eq.id_equipe 
+				FROM joueurs AS j 
+				INNER JOIN equipes_joueurs AS eq ON j.id = eq.id_joueur 
+				INNER JOIN rencontres AS r ON r.equipe = eq.id_equipe 
+				WHERE j.email = '".$_SESSION['u']['email']."' AND r.date >= CURDATE() GROUP BY r.equipe";
+				
 		$sql = "SELECT eq.nom_equipe AS nom_equipe, eq.id AS id 
 				FROM $this->table AS eq 
-				WHERE eq.capitaine = '$idjoueur' OR eq.id IN 
-					(SELECT id_equipe 
-					FROM equipes_joueurs 
-					WHERE id_joueur = $idjoueur)
+				WHERE eq.capitaine = '$idjoueur' 
+					OR eq.id IN 
+					($req)
 				ORDER BY eq.id;";
 	//	echo "<pre>"; var_dump($sql); die;
 		$res = $this->select($sql);
